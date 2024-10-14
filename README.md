@@ -19,6 +19,12 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    // Проверяем, что переданное значение находится в корректном диапазоне для прав доступа
+    if (mode > 07777) {
+        fprintf(stderr, "Mode out of range: %s\n", argv[1]);
+        return 1;
+    }
+
     // Пытаемся изменить права доступа к файлу
     if (chmod(argv[2], mode) != 0) {
         perror("chmod");
