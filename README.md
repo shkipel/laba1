@@ -10,17 +10,14 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    // Преобразование строки в unsigned long
     char *endptr;
     unsigned long mode = strtoul(argv[1], &endptr, 8);
 
-    // Проверка ошибок преобразования
     if (*endptr != '\0' || endptr == argv[1]) {
         fprintf(stderr, "Invalid mode: %s\n", argv[1]);
         return EXIT_FAILURE;
     }
 
-    // Изменение прав доступа к файлу
     if (chmod(argv[2], (mode_t)mode) == -1) {
         fprintf(stderr, "Error changing mode of %s: %s\n", argv[2], strerror(errno));
         return EXIT_FAILURE;
